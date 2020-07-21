@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  CurrencyViewer
+
+  Created by Sergey Markov on 21.07.2020.
+  Copyright © 2020 Sergey Markov. All rights reserved.
+*/
+
+"euro" = "euro";
+"dollar" = "dollar";
+"ruble" = "ruble";
+
+"increased" = "increased";
+"fell" = "fell";
+
+"percent" = "percent";
+"percents" = "percents";
+"percents_2" = "percents";
+
+"Since yesterday" = "Since yesterday";
+"by" = "by";
+
+"UPDATED AT" = "UPDATED AT";

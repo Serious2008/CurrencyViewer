@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gi2-Sy-rSe">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Currency View View Controller-->
+        <scene sceneID="4XW-Gg-Cqn">
+            <objects>
+                <viewController id="Gi2-Sy-rSe" customClass="CurrencyViewViewController" customModule="CurrencyViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ixs-uB-cnt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt5-aW-dqG">
+                                <rect key="frame" x="16" y="100" width="288" height="174"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-dp-1ja">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="123"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3d-1H-fgu">
+                                                <rect key="frame" x="97" y="8" width="94" height="20"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="USD -&gt; RUB">
+                                                        <attributes>
+                                                            <color key="NSColor" name="CurrencyTitleLabelColor"/>
+                                                            <font key="NSFont" size="17" name="Lato-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="1" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHS-Wt-6ex">
+                                                <rect key="frame" x="18.5" y="25" width="251" height="98"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="98" id="O2q-uU-EVq"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="71.123">
+                                                        <attributes>
+                                                            <color key="NSColor" name="CurrencyCostLabelColor"/>
+                                                            <font key="NSFont" size="80" name="Lato-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="mHS-Wt-6ex" firstAttribute="top" secondItem="qgj-dp-1ja" secondAttribute="top" constant="25" id="9zN-Tr-YBL"/>
+                                            <constraint firstItem="E3d-1H-fgu" firstAttribute="centerX" secondItem="qgj-dp-1ja" secondAttribute="centerX" id="nJb-e8-A2f"/>
+                                            <constraint firstItem="E3d-1H-fgu" firstAttribute="top" secondItem="qgj-dp-1ja" secondAttribute="top" constant="8" id="qqk-3d-fbX"/>
+                                            <constraint firstItem="mHS-Wt-6ex" firstAttribute="centerX" secondItem="qgj-dp-1ja" secondAttribute="centerX" id="siY-84-YpH"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWX-id-4E6">
+                                        <rect key="frame" x="0.0" y="123" width="288" height="51"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhh-wW-KZ8">
+                                                <rect key="frame" x="44" y="7" width="200.5" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200.5" id="TXL-9X-hJV"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Со вчерашнего дня доллар вырос на 1 процент">
+                                                        <attributes>
+                                                            <color key="NSColor" name="DetailsTitlePositiveColor"/>
+                                                            <font key="NSFont" size="17" name="Lato-MediumItalic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="hhh-wW-KZ8" firstAttribute="centerX" secondItem="NWX-id-4E6" secondAttribute="centerX" id="2rA-MU-kd1"/>
+                                            <constraint firstItem="hhh-wW-KZ8" firstAttribute="top" secondItem="NWX-id-4E6" secondAttribute="top" constant="7" id="Ehh-bF-dg5"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="174" id="0EZ-tD-6LG"/>
+                                    <constraint firstItem="NWX-id-4E6" firstAttribute="top" secondItem="zt5-aW-dqG" secondAttribute="top" constant="123" id="6Q9-kg-gdy"/>
+                                    <constraint firstItem="NWX-id-4E6" firstAttribute="leading" secondItem="zt5-aW-dqG" secondAttribute="leading" id="Qum-LO-SdT"/>
+                                    <constraint firstItem="qgj-dp-1ja" firstAttribute="leading" secondItem="zt5-aW-dqG" secondAttribute="leading" id="UIa-rE-yTt"/>
+                                    <constraint firstAttribute="bottom" secondItem="NWX-id-4E6" secondAttribute="bottom" id="ZF8-W2-phd"/>
+                                    <constraint firstItem="NWX-id-4E6" firstAttribute="top" secondItem="qgj-dp-1ja" secondAttribute="bottom" id="ZuG-Zs-UqA"/>
+                                    <constraint firstItem="qgj-dp-1ja" firstAttribute="top" secondItem="zt5-aW-dqG" secondAttribute="top" id="a6c-OV-gZ6"/>
+                                    <constraint firstAttribute="trailing" secondItem="qgj-dp-1ja" secondAttribute="trailing" id="pJ4-O2-bYe"/>
+                                    <constraint firstAttribute="trailing" secondItem="NWX-id-4E6" secondAttribute="trailing" id="uVd-wZ-Pbd"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-a6-Y3l">
+                                <rect key="frame" x="20" y="437" width="21" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="3PP-0g-Zoc"/>
+                                    <constraint firstAttribute="width" constant="21" id="B90-X5-une"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="menuButton"/>
+                                <connections>
+                                    <action selector="currencyListButtonTap:" destination="Gi2-Sy-rSe" eventType="touchUpInside" id="SXq-oU-9a0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd3-yu-JNZ">
+                                <rect key="frame" x="103" y="436.5" width="114" height="13.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="ОБНОВЛЕНО В 17:05">
+                                        <attributes>
+                                            <color key="NSColor" name="UpdateInfoLabelColor"/>
+                                            <font key="NSFont" size="11" name="Lato-Black"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="XZk-fV-WXX" firstAttribute="trailing" secondItem="zt5-aW-dqG" secondAttribute="trailing" constant="16" id="0g6-HR-zgE"/>
+                            <constraint firstItem="XZk-fV-WXX" firstAttribute="bottom" secondItem="9LR-a6-Y3l" secondAttribute="bottom" constant="30" id="7be-A5-idZ"/>
+                            <constraint firstItem="Dd3-yu-JNZ" firstAttribute="centerX" secondItem="Ixs-uB-cnt" secondAttribute="centerX" id="Au6-La-753"/>
+                            <constraint firstItem="XZk-fV-WXX" firstAttribute="bottom" secondItem="Dd3-yu-JNZ" secondAttribute="bottom" constant="30" id="DsX-ct-P58"/>
+                            <constraint firstItem="zt5-aW-dqG" firstAttribute="centerX" secondItem="Ixs-uB-cnt" secondAttribute="centerX" id="OsT-1U-jxx"/>
+                            <constraint firstItem="9LR-a6-Y3l" firstAttribute="leading" secondItem="XZk-fV-WXX" secondAttribute="leading" constant="20" id="Ro8-5K-cpo"/>
+                            <constraint firstItem="zt5-aW-dqG" firstAttribute="top" secondItem="XZk-fV-WXX" secondAttribute="top" constant="100" id="cEd-FF-aoh"/>
+                            <constraint firstItem="zt5-aW-dqG" firstAttribute="leading" secondItem="XZk-fV-WXX" secondAttribute="leading" constant="16" id="fDl-Hc-gmz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XZk-fV-WXX"/>
+                    </view>
+                    <connections>
+                        <outlet property="currencyCostLabel" destination="mHS-Wt-6ex" id="MhA-FN-gR0"/>
+                        <outlet property="currencyDetailsLabel" destination="hhh-wW-KZ8" id="KLl-Kv-GeG"/>
+                        <outlet property="currencyDetailsView" destination="NWX-id-4E6" id="BW3-9A-iV2"/>
+                        <outlet property="currencyListButton" destination="9LR-a6-Y3l" id="pel-xd-k62"/>
+                        <outlet property="currencyRefreshDateLabel" destination="Dd3-yu-JNZ" id="3CS-bP-u3l"/>
+                        <outlet property="currencyTitleLabel" destination="E3d-1H-fgu" id="5df-F7-sIL"/>
+                        <outlet property="currencyTitleView" destination="qgj-dp-1ja" id="dAq-kW-61g"/>
+                        <outlet property="mainViewTopConstraint" destination="cEd-FF-aoh" id="m1Z-OR-bEb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FeB-rw-gwa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="78.75" y="60"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="menuButton" width="21" height="13"/>
+        <namedColor name="CurrencyCostLabelColor">
+            <color red="0.24705882352941178" green="0.27843137254901962" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="CurrencyTitleLabelColor">
+            <color red="0.24705882352941178" green="0.27843137254901962" blue="0.32549019607843138" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DetailsTitlePositiveColor">
+            <color red="0.49411764705882355" green="0.82745098039215681" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="UpdateInfoLabelColor">
+            <color red="0.24705882352941178" green="0.27843137254901962" blue="0.32549019607843138" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

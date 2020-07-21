@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Currency List View Controller-->
+        <scene sceneID="ttW-sJ-O5O">
+            <objects>
+                <viewController storyboardIdentifier="CurrencyListViewController" id="oNc-sS-Fz7" customClass="CurrencyListViewController" customModule="CurrencyViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="idq-3d-eaU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E2y-9s-1vP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" name="CellBackgroundColor"/>
+                                <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="oNc-sS-Fz7" id="lat-FC-TSk"/>
+                                    <outlet property="delegate" destination="oNc-sS-Fz7" id="0eb-fy-pZh"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" name="CellBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E2y-9s-1vP" firstAttribute="top" secondItem="DCS-nF-0CV" secondAttribute="top" id="KYc-fr-sea"/>
+                            <constraint firstItem="E2y-9s-1vP" firstAttribute="trailing" secondItem="DCS-nF-0CV" secondAttribute="trailing" id="Q3M-8i-FRg"/>
+                            <constraint firstItem="E2y-9s-1vP" firstAttribute="bottom" secondItem="DCS-nF-0CV" secondAttribute="bottom" id="XTD-IC-kgm"/>
+                            <constraint firstItem="E2y-9s-1vP" firstAttribute="leading" secondItem="DCS-nF-0CV" secondAttribute="leading" id="pDH-gs-aDn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DCS-nF-0CV"/>
+                    </view>
+                    <connections>
+                        <outlet property="currencyListTable" destination="E2y-9s-1vP" id="ct7-Vc-DQp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="61w-o6-8Cv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1559.2" y="-189.3553223388306"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="CellBackgroundColor">
+            <color red="0.24699999392032623" green="0.27799999713897705" blue="0.32899999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>
