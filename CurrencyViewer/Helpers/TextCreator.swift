@@ -8,7 +8,7 @@
 
 import Foundation
 
-private enum CurrencyDescription: String, CustomStringConvertible {
+private enum CurrencyFullName: String, CustomStringConvertible {
     case RUB, EUR, USD
     
     var description: String {
@@ -26,7 +26,7 @@ private enum CurrencyDescription: String, CustomStringConvertible {
     
 }
 
-private enum IncreaseDescription: String {
+private enum DiffDescription: String {
     case UP, DOWN
     
     var description: String {
@@ -41,7 +41,7 @@ private enum IncreaseDescription: String {
     }
     
     static func increaseText(for value: Float) -> String {
-        var increaseDescription = IncreaseDescription.UP
+        var increaseDescription = DiffDescription.UP
         if value < 0 {
             increaseDescription = .DOWN
         }
@@ -56,15 +56,15 @@ class TextCreator {
     func createDiffereneCurrencyCostText(difference: Float, currencyAbbreviation: String) -> String {
 
         let absValue = abs(difference)
-        let roundValue = absValue.rounded(.up)
+        let roundValue = Int(absValue.rounded(.up))
         
-        let currencyDescription = (CurrencyDescription(rawValue: currencyAbbreviation)?.description) ?? currencyAbbreviation
+        let currencyFullName = (CurrencyFullName(rawValue: currencyAbbreviation)?.description) ?? currencyAbbreviation
         
         let localizedString = NSLocalizedString("currency diff percents", comment: "")
         
         let resultString = String.localizedStringWithFormat(localizedString,
-                                                            currencyDescription ,
-                                                            IncreaseDescription.increaseText(for: difference),
+                                                            currencyFullName ,
+                                                            DiffDescription.increaseText(for: difference),
                                                             roundValue)
 
         return resultString

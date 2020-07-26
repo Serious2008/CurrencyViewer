@@ -82,7 +82,7 @@ class CurrencyViewViewController: UIViewController, CurrencyViewDisplayLogic, Cu
             self.setTextWithLineSpacing(label: self.currencyDetailsLabel, text: self.currencyDetailsLabel.text!, lineSpacing: 1.21)
             
             self.setTextWithLineSpacing(label: self.currencyRefreshDateLabel, text: self.currencyRefreshDateLabel.text!, lineSpacing: 2)
-            print(self.currencyTitleLabel)
+
             self.currencyTitleView.alpha = 0
             UIView.animate(withDuration: 0.25) {
                 self.currencyTitleView.alpha = 1
