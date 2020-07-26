@@ -23,6 +23,7 @@ private enum CurrencyDescription: String, CustomStringConvertible {
         }
       }
     }
+    
 }
 
 private enum IncreaseDescription: String {
@@ -49,54 +50,23 @@ private enum IncreaseDescription: String {
     }
 }
 
-private enum CountDescription: String {
-    case SINGLE, PLURAL, PLURAL2
-    
-    var description: String {
-      get {
-        switch self {
-          case .SINGLE:
-            return NSLocalizedString("percent", comment: "")
-          case .PLURAL:
-            return NSLocalizedString("percents", comment: "")
-        case .PLURAL2:
-            return NSLocalizedString("percents_2", comment: "")
-        }
-      }
-    }
-    
-    static func countText(for value: Int) -> String {
-        var countDescription = CountDescription.SINGLE
-        switch value {
-        case 1:
-            countDescription = .SINGLE
-        case 2...4:
-            countDescription = .PLURAL
-        case 0, 5...19:
-            countDescription = .PLURAL2
-        default:
-            print("CountDescription error")
-        }
-
-        return countDescription.description
-    }
-}
 
 class TextCreator {
     
     func createDiffereneCurrencyCostText(difference: Float, currencyAbbreviation: String) -> String {
-        
+
         let absValue = abs(difference)
         let roundValue = absValue.rounded(.up)
         
-        var numberForCountDescription = Int(roundValue) % 100
+        let currencyDescription = (CurrencyDescription(rawValue: currencyAbbreviation)?.description) ?? "UNKNOWN"
         
-        if numberForCountDescription > 19 {
-            numberForCountDescription = numberForCountDescription % 10
-        }
+        let localizedString = NSLocalizedString("currency diff percents", comment: "")
         
-        let mainText = "\(NSLocalizedString("Since yesterday", comment: "")) \(CurrencyDescription.init(rawValue: currencyAbbreviation)!) \(IncreaseDescription.increaseText(for: difference)) \(NSLocalizedString("by", comment: "")) \(Int(roundValue)) \(CountDescription.countText(for: numberForCountDescription))"
-        
-        return mainText
+        let resultString = String.localizedStringWithFormat(localizedString,
+                                                            currencyDescription ,
+                                                            IncreaseDescription.increaseText(for: difference),
+                                                            roundValue)
+
+        return resultString
     }
 }
