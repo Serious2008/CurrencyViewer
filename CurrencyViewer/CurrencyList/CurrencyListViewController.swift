@@ -16,7 +16,7 @@ class CurrencyListViewController: UIViewController {
 
     var currencyListSelect: CurrencyListSelect?
     
-    var currencyListViewModel = CurrencyListViewModel.init(cells: [])
+    var currencyListViewModel = CurrencyListViewModel(cells: [])
     
     @IBOutlet weak var currencyListTable: UITableView!
     

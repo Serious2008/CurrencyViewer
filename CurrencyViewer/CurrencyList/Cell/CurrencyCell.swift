@@ -21,7 +21,7 @@ class CurrencyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.separatorInset = UIEdgeInsets.init(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        self.separatorInset = .zero
     }
     
     func set(viewModel: CurrencyCellViewModel) {

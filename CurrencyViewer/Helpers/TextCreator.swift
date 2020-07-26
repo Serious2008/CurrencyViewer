@@ -58,7 +58,7 @@ class TextCreator {
         let absValue = abs(difference)
         let roundValue = absValue.rounded(.up)
         
-        let currencyDescription = (CurrencyDescription(rawValue: currencyAbbreviation)?.description) ?? "UNKNOWN"
+        let currencyDescription = (CurrencyDescription(rawValue: currencyAbbreviation)?.description) ?? currencyAbbreviation
         
         let localizedString = NSLocalizedString("currency diff percents", comment: "")
         

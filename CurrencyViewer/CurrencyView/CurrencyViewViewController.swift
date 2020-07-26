@@ -17,7 +17,7 @@ class CurrencyViewViewController: UIViewController, CurrencyViewDisplayLogic, Cu
   var interactor: CurrencyViewBusinessLogic?
   var router: (NSObjectProtocol & CurrencyViewRoutingLogic)?
     
-    private var currencyListViewModel = CurrencyListViewModel.init(cells: [])
+    private var currencyListViewModel = CurrencyListViewModel(cells: [])
     
     @IBOutlet weak var currencyTitleLabel: UILabel!
     @IBOutlet weak var currencyCostLabel: UILabel!
@@ -61,6 +61,7 @@ class CurrencyViewViewController: UIViewController, CurrencyViewDisplayLogic, Cu
     
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
             self.mainViewTopConstraint.constant = 100
             self.view.layoutIfNeeded()
@@ -81,7 +82,7 @@ class CurrencyViewViewController: UIViewController, CurrencyViewDisplayLogic, Cu
             self.setTextWithLineSpacing(label: self.currencyDetailsLabel, text: self.currencyDetailsLabel.text!, lineSpacing: 1.21)
             
             self.setTextWithLineSpacing(label: self.currencyRefreshDateLabel, text: self.currencyRefreshDateLabel.text!, lineSpacing: 2)
-            
+            print(self.currencyTitleLabel)
             self.currencyTitleView.alpha = 0
             UIView.animate(withDuration: 0.25) {
                 self.currencyTitleView.alpha = 1
@@ -89,9 +90,10 @@ class CurrencyViewViewController: UIViewController, CurrencyViewDisplayLogic, Cu
         }
         
     case .displayCurrencies(currencyListViewModel: let currencyListViewModel):
-        self.currencyListViewModel = currencyListViewModel
         
         DispatchQueue.main.async {
+            self.currencyListViewModel = currencyListViewModel
+            
             UIView.animate(withDuration: 0.25) {
                 self.currencyListButton.alpha = 1
             }
