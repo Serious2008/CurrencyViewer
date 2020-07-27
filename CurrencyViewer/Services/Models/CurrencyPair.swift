@@ -1,5 +1,5 @@
 //
-//  Currency.swift
+//  CurrencyPair.swift
 //  CurrencyViewer
 //
 //  Created by Sergey Markov on 20.07.2020.
@@ -8,13 +8,12 @@
 
 import Foundation
 
-struct Currency: Equatable {
-    var isSelect: Bool
+struct CurrencyPair: Equatable {
     let title: String
     let cost: Float
     var abbreviation: String
     
-    static func == (lhs: Currency, rhs: Currency) -> Bool {
+    static func == (lhs: CurrencyPair, rhs: CurrencyPair) -> Bool {
         return lhs.title == rhs.title
     }
     

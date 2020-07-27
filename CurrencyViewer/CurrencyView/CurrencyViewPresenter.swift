@@ -23,12 +23,12 @@ class CurrencyViewPresenter: CurrencyViewPresentationLogic {
         
         viewController?.displayData(viewModel: CurrencyView.Model.ViewModel.ViewModelData.displaySelectedCurrency(currencyViewModel: currencyViewModel(from: currency)))
         
-    case .presentCurrencies(currencies: let currencies):
+    case .presentCurrencies(currencies: let currencies, selectedCurrency: let selectedCurrency):
         
         let cells = currencies.map { (currency) in
-            cellViewModel(from: currency)
+            cellViewModel(from: currency, isSelected: currency == selectedCurrency)
         }
-        let currencyListViewModel = CurrencyListViewModel.init(cells: cells)
+        let currencyListViewModel = CurrencyListViewModel(cells: cells)
         viewController?.displayData(viewModel: CurrencyView.Model.ViewModel.ViewModelData.displayCurrencies(currencyListViewModel: currencyListViewModel))
     
     case .presentCurrencyDifference(difference: let difference, abbreviation: let abbreviation):
@@ -48,28 +48,28 @@ class CurrencyViewPresenter: CurrencyViewPresentationLogic {
         
         let color: UIColor
         if difference < 0 {
-            color = UIColor.init(named: "DetailsTitleNegativeColor")!
+            color = UIColor(named: "DetailsTitleNegativeColor")!
         }else{
-            color = UIColor.init(named: "DetailsTitlePositiveColor")!
+            color = UIColor(named: "DetailsTitlePositiveColor")!
         }
         
         return CurrencyDifferenceViewModel(text: text,
                                            textColor: color)
     }
     
-    private func currencyViewModel(from currency: Currency) -> CurrencyViewModel {
+    private func currencyViewModel(from currency: CurrencyPair) -> CurrencyViewModel {
         
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 3
         formatter.minimumFractionDigits = 3
-//        formatter.roundingMode = .down
+        formatter.numberStyle = .decimal
 
-        return CurrencyViewModel.init(title: currency.title,
+        return CurrencyViewModel(title: currency.title,
                                       cost: formatter.string(for: currency.cost) ?? "\(currency.cost)")
     }
     
-    private func cellViewModel(from currency: Currency) -> CurrencyListViewModel.Cell {
-        return CurrencyListViewModel.Cell.init(isSelect: currency.isSelect,
+    private func cellViewModel(from currency: CurrencyPair, isSelected: Bool) -> CurrencyListViewModel.Cell {
+        return CurrencyListViewModel.Cell(isSelect: isSelected,
                                                name: currency.title)
     }
   

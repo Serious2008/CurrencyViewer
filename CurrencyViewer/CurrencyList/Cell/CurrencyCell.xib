@@ -42,10 +42,10 @@
     </objects>
     <resources>
         <namedColor name="CellBackgroundColor">
-            <color red="0.2470588235" green="0.2784313725" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.24699999392032623" green="0.27799999713897705" blue="0.32899999618530273" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="CellTitleUnselectColor">
-            <color red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

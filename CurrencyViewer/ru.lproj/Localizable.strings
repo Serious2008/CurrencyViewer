@@ -6,19 +6,11 @@
   Copyright © 2020 Sergey Markov. All rights reserved.
 */
 
-
 "euro" = "евро";
 "dollar" = "доллар";
 "ruble" = "рубль";
 
 "increased" = "вырос";
 "fell" = "упал";
-
-"percent" = "процент";
-"percents" = "процента";
-"percents_2" = "процентов";
-
-"Since yesterday" = "Со вчерашнего дня";
-"by" = "на";
 
 "UPDATED AT" = "ОБНОВЛЕНО В";

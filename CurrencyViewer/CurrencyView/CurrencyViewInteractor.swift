@@ -15,24 +15,16 @@ protocol CurrencyViewBusinessLogic {
 class CurrencyViewInteractor: CurrencyViewBusinessLogic {
 
   var presenter: CurrencyViewPresentationLogic?
-  var service: CurrencyViewService?
-    var storageService: StorageService?
+  var service: CurrencyViewService? = CurrencyViewService()
+    lazy var storageService: StorageService? = StorageService()
     
     private var fetcher: DataFetcher = NetworkDataFetcher(networking: NetworkService())
-    private var currencyList = [Currency]()
-    private var yesterdayCurrencyList = [Currency]()
-    private var selectedCurrency : Currency?
+    private var currencyList = [CurrencyPair]()
+    private var yesterdayCurrencyList = [CurrencyPair]()
+    private var selectedCurrency : CurrencyPair?
   
   func makeRequest(request: CurrencyView.Model.Request.RequestType) {
-    if service == nil {
-      service = CurrencyViewService()
-        
-    }
-    
-    if storageService == nil {
-        storageService = StorageService()
-    }
-    
+
     switch request {
 
     case .getCurrency:
@@ -44,73 +36,58 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
 
         
         fetcher.getLatestCurrency { [weak self] (currencyResponse) in
-            guard let currencyResponse = currencyResponse else { return }
+            guard let currencyResponse = currencyResponse,
+                    let self = self else { return }
             
-            self?.currencyList = CurrencyList.create(currencyAvailable: currencyResponse.rates)
+            self.currencyList = CurrencyList.create(currencyAvailable: currencyResponse.rates)
             
-            if let selectedCurrency = self?.storageService?.loadCurrency() {
-                //find and selectCurrency
-                var selectedCurrencyIndex: Int = -1
-                for index in 0..<(self?.currencyList.count)! {
-                    if (self?.currencyList[index].title)! == selectedCurrency.title {
-                        self?.currencyList[index].isSelect = true
-                        selectedCurrencyIndex = index
-                        break
-                    }
-                }
+            if let selectedCurrency = self.storageService?.loadCurrency() {
+                //find selected currency
+                self.selectedCurrency = nil
+                self.selectedCurrency = (self.currencyList.filter{ $0 == selectedCurrency }).first
 
-                if selectedCurrencyIndex >= 0 {
-                    //show currency
-                    self?.selectedCurrency = self?.currencyList[selectedCurrencyIndex]
-                    self?.prepareCurrencyList(index: selectedCurrencyIndex)
-                } else {
-                    //select first currency
-                    self?.selectFirst(currencyList: self!.currencyList)
-                    self?.prepareCurrencyList(index: 0)
+                //show currency
+                if self.selectedCurrency == nil {
+                    self.selectFirst(currencyList: self.currencyList)
                 }
+                self.prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
                 
             } else {
                 //select first currency
-                self?.selectFirst(currencyList: self!.currencyList)
-                self?.prepareCurrencyList(index: 0)
+                self.selectFirst(currencyList: self.currencyList)
+                self.prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
             }
             
-            self?.storageService?.saveCurrency(currency: (self?.selectedCurrency)!)
+            self.storageService?.saveCurrency(currency: (self.selectedCurrency)!)
             
             //get updatedTime
-            self?.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentUpdatedTime(time: Date().toString(dateFormat: "HH:mm")))
+            self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentUpdatedTime(time: Date().toString(dateFormat: "HH:mm")))
             
             //load yesterday currencies
-            self?.fetcher.getYesterdayCurrency(date: currencyResponse.date) { [weak self] (yesterdayCurrencyResponse) in
-                guard let yesterdayCurrencyResponse = yesterdayCurrencyResponse else { return }
+            self.fetcher.getYesterdayCurrency(date: currencyResponse.date) { [weak self] (yesterdayCurrencyResponse) in
+                guard let yesterdayCurrencyResponse = yesterdayCurrencyResponse,
+                        let self = self else { return }
                 
-                self?.yesterdayCurrencyList = CurrencyList.create(currencyAvailable: yesterdayCurrencyResponse.rates)
+                self.yesterdayCurrencyList = CurrencyList.create(currencyAvailable: yesterdayCurrencyResponse.rates)
                 
-                let yesterdaySelCurrency = self?.yesterdayCurrencyList.filter { $0 == self?.selectedCurrency }
+                let yesterdaySelCurrency = self.yesterdayCurrencyList.filter { $0 == self.selectedCurrency }
                 
-                if let yesterdaySelCurrency = yesterdaySelCurrency?.first,
-                    let selectedCurrency = self?.selectedCurrency {
+                if let yesterdaySelCurrency = yesterdaySelCurrency.first,
+                    let selectedCurrency = self.selectedCurrency {
                     
+                    //calculate diff in percent
                     let increase = selectedCurrency.cost - yesterdaySelCurrency.cost
                     let percentage = (increase/yesterdaySelCurrency.cost) * 100
 
-                    self?.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencyDifference(difference: percentage, abbreviation: (self?.selectedCurrency?.getAbbreviation())!))
+                    self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencyDifference(difference: percentage, abbreviation: self.selectedCurrency?.getAbbreviation() ?? "UNKNOWN"))
                 }
             }
         }
     case .selectCurrency(index: let index):
-        //unselect prevSelected Cell
-        for index in 0..<currencyList.count {
-            if currencyList[index].isSelect {
-                currencyList[index].isSelect = false
-                break
-            }
-        }
         
-        currencyList[index].isSelect = true
         self.selectedCurrency = currencyList[index]
         
-        prepareCurrencyList(index: index)
+        prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
         
         self.storageService?.saveCurrency(currency: self.selectedCurrency!)
         
@@ -128,16 +105,15 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
     }
   }
     
-    private func prepareCurrencyList(index: Int) {
+    private func prepareCurrencyList(selectedCurrency: CurrencyPair) {
         
-        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentSelectedCurrency(currency: self.currencyList[index]))
-        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencies(currencies: self.currencyList))
+        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentSelectedCurrency(currency: selectedCurrency))
+        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencies(currencies: self.currencyList, selectedCurrency: selectedCurrency))
     }
     
-    private func selectFirst(currencyList: [Currency]) {
+    private func selectFirst(currencyList: [CurrencyPair]) {
         
         if (currencyList.first != nil) {
-            self.currencyList[0].isSelect = true
             self.selectedCurrency = currencyList[0]
         }
     }
