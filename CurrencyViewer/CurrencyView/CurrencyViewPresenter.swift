@@ -23,10 +23,10 @@ class CurrencyViewPresenter: CurrencyViewPresentationLogic {
         
         viewController?.displayData(viewModel: CurrencyView.Model.ViewModel.ViewModelData.displaySelectedCurrency(currencyViewModel: currencyViewModel(from: currency)))
         
-    case .presentCurrencies(currencies: let currencies):
+    case .presentCurrencies(currencies: let currencies, selectedCurrency: let selectedCurrency):
         
         let cells = currencies.map { (currency) in
-            cellViewModel(from: currency)
+            cellViewModel(from: currency, isSelected: currency == selectedCurrency)
         }
         let currencyListViewModel = CurrencyListViewModel(cells: cells)
         viewController?.displayData(viewModel: CurrencyView.Model.ViewModel.ViewModelData.displayCurrencies(currencyListViewModel: currencyListViewModel))
@@ -57,7 +57,7 @@ class CurrencyViewPresenter: CurrencyViewPresentationLogic {
                                            textColor: color)
     }
     
-    private func currencyViewModel(from currency: Currency) -> CurrencyViewModel {
+    private func currencyViewModel(from currency: CurrencyPair) -> CurrencyViewModel {
         
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 3
@@ -68,8 +68,8 @@ class CurrencyViewPresenter: CurrencyViewPresentationLogic {
                                       cost: formatter.string(for: currency.cost) ?? "\(currency.cost)")
     }
     
-    private func cellViewModel(from currency: Currency) -> CurrencyListViewModel.Cell {
-        return CurrencyListViewModel.Cell(isSelect: currency.isSelect,
+    private func cellViewModel(from currency: CurrencyPair, isSelected: Bool) -> CurrencyListViewModel.Cell {
+        return CurrencyListViewModel.Cell(isSelect: isSelected,
                                                name: currency.title)
     }
   

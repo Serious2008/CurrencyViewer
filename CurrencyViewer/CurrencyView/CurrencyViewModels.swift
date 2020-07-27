@@ -19,8 +19,8 @@ enum CurrencyView {
     }
     struct Response {
       enum ResponseType {
-        case presentSelectedCurrency(currency: Currency)
-        case presentCurrencies(currencies: [Currency])
+        case presentSelectedCurrency(currency: CurrencyPair)
+        case presentCurrencies(currencies: [CurrencyPair], selectedCurrency: CurrencyPair)
         case presentCurrencyDifference(difference: Float, abbreviation: String)
         case presentUpdatedTime(time: String)
       }

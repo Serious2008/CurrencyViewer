@@ -10,19 +10,19 @@ import Foundation
 
 class StorageService {
     
-    func saveCurrency(currency: Currency) {
+    func saveCurrency(currency: CurrencyPair) {
         let defaults = UserDefaults.standard
         defaults.set(currency.title, forKey: "SelectedCurrencyTitle")
         defaults.set(currency.cost, forKey: "SelectedCurrencyCost")
     }
     
-    func loadCurrency() -> Currency? {
+    func loadCurrency() -> CurrencyPair? {
         
         let defaults = UserDefaults.standard
         if let currencyTitle = defaults.string(forKey: "SelectedCurrencyTitle") {
             
             let currencyCost = defaults.float(forKey: "SelectedCurrencyCost")
-            return Currency(isSelect: true, title: currencyTitle , cost: currencyCost, abbreviation: "")
+            return CurrencyPair(title: currencyTitle , cost: currencyCost, abbreviation: "")
             
         }else { return nil }
     }

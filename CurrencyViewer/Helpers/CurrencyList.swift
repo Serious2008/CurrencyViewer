@@ -10,9 +10,9 @@ import Foundation
 
 class CurrencyList {
     
-    static func create(currencyAvailable: CurrencyAvailable) -> [Currency] {
+    static func create(currencyAvailable: CurrencyAvailable) -> [CurrencyPair] {
         
-        var currencyList = [Currency]()
+        var currencyList = [CurrencyPair]()
         
         for firstCurrency in currencyAvailable.dictionaryOfCurrency() {
             
@@ -21,8 +21,7 @@ class CurrencyList {
                 
                 let cost = calculateCost(firstCurrencyCost: firstCurrency.value, secondCurrencyCost: secondCurrency.value)
                 
-                let currency = Currency(isSelect: false,
-                                        title: "\(firstCurrency.key) → \(secondCurrency.key)",
+                let currency = CurrencyPair(title: "\(firstCurrency.key) → \(secondCurrency.key)",
                                         cost: cost,
                                         abbreviation: firstCurrency.key)
                 

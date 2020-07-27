@@ -19,9 +19,9 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
     lazy var storageService: StorageService? = StorageService()
     
     private var fetcher: DataFetcher = NetworkDataFetcher(networking: NetworkService())
-    private var currencyList = [Currency]()
-    private var yesterdayCurrencyList = [Currency]()
-    private var selectedCurrency : Currency?
+    private var currencyList = [CurrencyPair]()
+    private var yesterdayCurrencyList = [CurrencyPair]()
+    private var selectedCurrency : CurrencyPair?
   
   func makeRequest(request: CurrencyView.Model.Request.RequestType) {
 
@@ -43,24 +43,19 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
             
             if let selectedCurrency = self.storageService?.loadCurrency() {
                 //find selected currency
-                var selectedCurrencyIndex: Int = 0
-                for index in 0..<self.currencyList.count {
-                    if self.currencyList[index] == selectedCurrency {
-                        selectedCurrencyIndex = index
-                        break
-                    }
-                }
-                //select Currency
-                self.currencyList[selectedCurrencyIndex].isSelect = true
+                self.selectedCurrency = nil
+                self.selectedCurrency = (self.currencyList.filter{ $0 == selectedCurrency }).first
 
                 //show currency
-                self.selectedCurrency = self.currencyList[selectedCurrencyIndex]
-                self.prepareCurrencyList(index: selectedCurrencyIndex)
+                if self.selectedCurrency == nil {
+                    self.selectFirst(currencyList: self.currencyList)
+                }
+                self.prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
                 
             } else {
                 //select first currency
                 self.selectFirst(currencyList: self.currencyList)
-                self.prepareCurrencyList(index: 0)
+                self.prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
             }
             
             self.storageService?.saveCurrency(currency: (self.selectedCurrency)!)
@@ -80,6 +75,7 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
                 if let yesterdaySelCurrency = yesterdaySelCurrency.first,
                     let selectedCurrency = self.selectedCurrency {
                     
+                    //calculate diff in percent
                     let increase = selectedCurrency.cost - yesterdaySelCurrency.cost
                     let percentage = (increase/yesterdaySelCurrency.cost) * 100
 
@@ -88,18 +84,10 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
             }
         }
     case .selectCurrency(index: let index):
-        //unselect prevSelected Cell
-        for index in 0..<currencyList.count {
-            if currencyList[index].isSelect {
-                currencyList[index].isSelect = false
-                break
-            }
-        }
         
-        currencyList[index].isSelect = true
         self.selectedCurrency = currencyList[index]
         
-        prepareCurrencyList(index: index)
+        prepareCurrencyList(selectedCurrency: self.selectedCurrency!)
         
         self.storageService?.saveCurrency(currency: self.selectedCurrency!)
         
@@ -117,16 +105,15 @@ class CurrencyViewInteractor: CurrencyViewBusinessLogic {
     }
   }
     
-    private func prepareCurrencyList(index: Int) {
+    private func prepareCurrencyList(selectedCurrency: CurrencyPair) {
         
-        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentSelectedCurrency(currency: self.currencyList[index]))
-        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencies(currencies: self.currencyList))
+        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentSelectedCurrency(currency: selectedCurrency))
+        self.presenter?.presentData(response: CurrencyView.Model.Response.ResponseType.presentCurrencies(currencies: self.currencyList, selectedCurrency: selectedCurrency))
     }
     
-    private func selectFirst(currencyList: [Currency]) {
+    private func selectFirst(currencyList: [CurrencyPair]) {
         
         if (currencyList.first != nil) {
-            self.currencyList[0].isSelect = true
             self.selectedCurrency = currencyList[0]
         }
     }
